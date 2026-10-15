@@ -7,7 +7,7 @@ import bcrypt
 
 app = FastAPI()
 
-@app.get("/db_test")
+@app.get("/auth/db_test")
 def health():
     with engine.connect() as conn:
         conn.execute(text("SELECT 1"))
