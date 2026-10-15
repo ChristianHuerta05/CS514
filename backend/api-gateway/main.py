@@ -30,4 +30,4 @@ async def proxy(path: str, request: Request):
             headers={k: v for k, v in request.headers.items() if k.lower() != "host"},
         )
 
-    return Response(content=res.content, status_code=res.status_code)
+    return Response(content=res.content,status_code=res.status_code,media_type=res.headers.get("content-type"),)
