@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: api-chris
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: backend/api-chris
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.12"
+
+  - type: web
+    name: api-jack
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: backend/api-jack
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.12"
+
+  - type: web
+    name: api-jurne
+    runtime: docker
+    region: oregon
+    plan: free
+    rootDir: backend/api-jurne/ticketmaster-backend
+    envVars:
+      - key: DATABASE_URL
+        sync: false
