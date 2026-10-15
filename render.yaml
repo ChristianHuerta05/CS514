@@ -38,3 +38,21 @@ services:
         sync: false
       - key: SECRET_KEY_BASE
         generateValue: true
+
+  - type: web
+    name: api-gateway
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: backend/api-gateway
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: API_CHRIS_URL
+        sync: false
+      - key: API_JACK_URL
+        sync: false
+      - key: API_JURNE_URL
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.12"
