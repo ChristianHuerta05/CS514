@@ -21,13 +21,16 @@ async def proxy(path: str, request: Request):
     if not where_to_route:
         return Response("endpoint does not exist", status_code=404)
 
+    bad_headers = {"host", "transfer-encoding", "content-length", "connection", "accept-encoding"}
+    headers = {k: v for k, v in request.headers.items() if k.lower() not in bad_headers}
+
     async with httpx.AsyncClient() as client:
         res = await client.request(
             method=request.method,
             url=f"{where_to_route}/{path}",
             params=request.query_params,
             content=await request.body(),
-            headers={k: v for k, v in request.headers.items() if k.lower() != "host"},
+            headers=headers,
         )
 
     return Response(content=res.content,status_code=res.status_code,media_type=res.headers.get("content-type"),)
