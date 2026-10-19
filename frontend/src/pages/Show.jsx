@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import Photo from '../components/Photo'
 import { useCatalog } from '../catalog-state'
 import { dateLine, dateParts, money } from '../format'
 import { useSession } from '../session'
@@ -72,7 +71,6 @@ export default function Show() {
         {event.venue?.capacity ? (
           <p className="cap">{Number(event.venue.capacity).toLocaleString('en-US')} in the room</p>
         ) : null}
-        <Photo src={event.image} alt="" city={event.venue?.city} id={event.id} />
         {event.note ? <p className="note">{event.note}</p> : null}
       </div>
 

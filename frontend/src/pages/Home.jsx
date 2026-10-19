@@ -4,7 +4,6 @@ import { useCatalog } from '../catalog-state'
 import { cheapestTier, lowestPrice } from '../data/catalog'
 import { dateLine, dateParts, money, withinWindow } from '../format'
 import { useSession } from '../session'
-import Photo from '../components/Photo'
 import Stub from '../components/Stub'
 
 export default function Home() {
@@ -83,7 +82,6 @@ export default function Home() {
             <p className="venue-line">
               {feature.venue?.city ? `${feature.venue.name} · ${feature.venue.city}` : feature.venue?.name}
             </p>
-            <Photo src={feature.image} alt={feature.title} city={feature.venue?.city} id={feature.id} />
             {feature.note ? <p className="note">{feature.note}</p> : null}
             <div className="feature-foot">
               <p className="from-price">

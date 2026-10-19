@@ -229,21 +229,6 @@ h1, h2, h3, p { margin: 0; }
   margin-bottom: 0.8rem;
 }
 
-.photo {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  display: block;
-  background: #d7cdbb;
-  border: 1px solid var(--ink);
-  filter: grayscale(1) contrast(1.08);
-}
-
-.photo.press {
-  filter: none;
-  background: #cfc6b4;
-}
-
 .note {
   font-style: italic;
   font-size: 1.18rem;
