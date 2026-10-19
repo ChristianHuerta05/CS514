@@ -73,6 +73,15 @@ export default function Layout() {
           <a href="https://docs.google.com/document/d/19H0UWRld-fGzfPq9qKVbmXxFXvJM04NrTMoMeP5cTD4/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
             About us
           </a>
+          <a href="https://docs.google.com/document/d/19qUrJz0V3qggBatT8mtzknQ3PDRZWbEZ9trMsFWouBs/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
+            Product Overview
+          </a>
+          <a href="https://docs.google.com/document/d/1GLmTmDSKHAXYuf8v8MiTwr9E2fmvriGSb6Lr11l8rpM/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
+            Database product document
+          </a>
+          <a href="https://docs.google.com/document/d/1kLHlO1gLd6FPyrKncMRAGVpgUWtNdjuYRYFuZ_ia-7k/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
+            Source Code & Executable
+          </a>
         </nav>
         <main>
           <Outlet />
