@@ -41,12 +41,21 @@ export function SessionProvider({ children }) {
     return map
   }, [state.tickets])
 
+  const mine = useMemo(() => {
+    if (!state.user) return { orders: [], tickets: [] }
+    const id = String(state.user.id)
+    return {
+      orders: state.orders.filter((order) => String(order.user_id) === id),
+      tickets: state.tickets.filter((ticket) => String(ticket.owner_id) === id),
+    }
+  }, [state.user, state.orders, state.tickets])
+
   const api = useMemo(() => {
     return {
       user: state.user,
       hold: state.hold,
-      orders: state.orders,
-      tickets: state.tickets,
+      orders: mine.orders,
+      tickets: mine.tickets,
       sold,
       left(tier) {
         return Math.max(0, Number(tier.remaining || 0) - (sold[tier.id] || 0))
@@ -115,7 +124,7 @@ export function SessionProvider({ children }) {
         return { order, tickets: made }
       },
     }
-  }, [sold, state])
+  }, [mine, sold, state])
 
   return <SessionContext.Provider value={api}>{children}</SessionContext.Provider>
 }

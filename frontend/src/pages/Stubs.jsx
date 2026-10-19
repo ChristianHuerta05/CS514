@@ -4,15 +4,26 @@ import { useSession } from '../session'
 import Stub from '../components/Stub'
 
 export default function Stubs() {
-  const { tickets, orders } = useSession()
+  const { tickets, orders, user } = useSession()
   const { getEvent } = useCatalog()
+
+  if (!user) {
+    return (
+      <section>
+        <h2>No name on the book.</h2>
+        <p className="note">
+          Sign in to see the stubs on your name. <Link to="/account">Account.</Link>
+        </p>
+      </section>
+    )
+  }
 
   if (!tickets.length) {
     return (
       <section>
-        <h2>No stubs yet.</h2>
+        <h2>No stubs on this name.</h2>
         <p className="note">
-          Paid holds land here. <Link to="/">Shows.</Link>
+          Paid holds for {user.name} land here. <Link to="/">Shows.</Link>
         </p>
       </section>
     )

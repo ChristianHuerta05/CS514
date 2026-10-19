@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { signup } from '../api/client'
+import { login, signup } from '../api/client'
 import { dateLine } from '../format'
 import { useSession } from '../session'
 
 export default function Account() {
   const { user, signIn, signOut } = useSession()
+  const [mode, setMode] = useState('signin')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -30,7 +31,27 @@ export default function Account() {
     )
   }
 
-  async function onSubmit(formEvent) {
+  function switchMode(next) {
+    setMode(next)
+    setNote('')
+    setPassword('')
+  }
+
+  async function onSignIn(formEvent) {
+    formEvent.preventDefault()
+    setPending(true)
+    setNote('')
+    try {
+      const found = await login({ email: email.trim(), password })
+      signIn(found)
+    } catch (error) {
+      setNote(error.message || 'The counter did not answer.')
+    } finally {
+      setPending(false)
+    }
+  }
+
+  async function onSignUp(formEvent) {
     formEvent.preventDefault()
     setPending(true)
     setNote('')
@@ -55,10 +76,47 @@ export default function Account() {
     }
   }
 
+  if (mode === 'signin') {
+    return (
+      <section className="account">
+        <h2>Sign in</h2>
+        <form className="book" onSubmit={onSignIn}>
+          <label>
+            Email
+            <input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+              autoComplete="email"
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+              autoComplete="current-password"
+            />
+          </label>
+          {note ? <p className="form-note">{note}</p> : null}
+          <button type="submit" className="ink-btn" disabled={pending}>
+            {pending ? 'Waiting' : 'Sign in'}
+          </button>
+        </form>
+        <button type="button" className="text-btn switch" onClick={() => switchMode('signup')}>
+          Open a name
+        </button>
+      </section>
+    )
+  }
+
   return (
     <section className="account">
       <h2>Open a name</h2>
-      <form className="book" onSubmit={onSubmit}>
+      <form className="book" onSubmit={onSignUp}>
         <label>
           Name
           <input value={name} onChange={(event) => setName(event.target.value)} required autoComplete="name" />
@@ -88,6 +146,9 @@ export default function Account() {
           {pending ? 'Waiting' : 'Sign up'}
         </button>
       </form>
+      <button type="button" className="text-btn switch" onClick={() => switchMode('signin')}>
+        Sign in
+      </button>
     </section>
   )
 }

@@ -705,6 +705,8 @@ h1, h2, h3, p { margin: 0; }
 
 .book input { width: 100%; }
 
+.switch { margin-top: 1rem; }
+
 .form-note {
   color: var(--stamp);
   font-style: italic;

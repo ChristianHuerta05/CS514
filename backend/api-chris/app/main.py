@@ -54,3 +54,25 @@ def signup(request: SignupRequest):
             "created_at": str(new_user_info.created_at),
         },
     )
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+@app.post("/auth/login")
+def login(request: LoginRequest):
+    with engine.connect() as conn:
+        row = conn.execute(
+            text("SELECT id, name, email, password_hash, created_at FROM users WHERE email = :email"),
+            {"email": request.email},
+        ).fetchone()
+
+    if row is None or not bcrypt.checkpw(request.password.encode("utf-8"), row.password_hash.encode("utf-8")):
+        raise HTTPException(status_code=401, detail="Wrong email or password")
+
+    return {
+        "id": row.id,
+        "name": row.name,
+        "email": row.email,
+        "created_at": str(row.created_at),
+    }

@@ -113,3 +113,42 @@ export async function signup(body) {
 
   return data
 }
+
+export async function login(body) {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), 8000)
+  let res
+  try {
+    res = await Promise.race([
+      fetch(`${GATEWAY}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      }),
+      timeout(8000),
+    ])
+  } catch {
+    const error = new Error('The counter did not answer.')
+    error.status = 0
+    throw error
+  } finally {
+    clearTimeout(timer)
+  }
+
+  const data = await readJson(res)
+
+  if (res.status === 401) {
+    const error = new Error('Wrong email or password')
+    error.status = 401
+    throw error
+  }
+
+  if (!res.ok || !data) {
+    const error = new Error('The counter did not answer.')
+    error.status = res.status
+    throw error
+  }
+
+  return data
+}
