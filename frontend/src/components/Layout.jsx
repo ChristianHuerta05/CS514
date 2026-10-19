@@ -60,25 +60,33 @@ export default function Layout() {
           <NavLink to="/" end>
             Shows
           </NavLink>
+          <span aria-hidden="true">|</span>
           <NavLink to="/window">
             Window{held ? ` ${held}` : ''}
           </NavLink>
+          <span aria-hidden="true">|</span>
           <NavLink to="/stubs">
             Stubs{tickets.length ? ` ${tickets.length}` : ''}
           </NavLink>
+          <span aria-hidden="true">|</span>
           <NavLink to="/account">Account</NavLink>
+          <span aria-hidden="true">|</span>
           <a href="https://docs.google.com/document/d/1rXPJI56uJ3kY53Yp3bBGGnVCoFmTg9I0YObS0gseXjs/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
             Blog
           </a>
+          <span aria-hidden="true">|</span>
           <a href="https://docs.google.com/document/d/19H0UWRld-fGzfPq9qKVbmXxFXvJM04NrTMoMeP5cTD4/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
             About us
           </a>
+          <span aria-hidden="true">|</span>
           <a href="https://docs.google.com/document/d/19qUrJz0V3qggBatT8mtzknQ3PDRZWbEZ9trMsFWouBs/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
             Product Overview
           </a>
+          <span aria-hidden="true">|</span>
           <a href="https://docs.google.com/document/d/1GLmTmDSKHAXYuf8v8MiTwr9E2fmvriGSb6Lr11l8rpM/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
             Database product document
           </a>
+          <span aria-hidden="true">|</span>
           <a href="https://docs.google.com/document/d/1kLHlO1gLd6FPyrKncMRAGVpgUWtNdjuYRYFuZ_ia-7k/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
             Source Code & Executable
           </a>
