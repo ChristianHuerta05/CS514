@@ -72,7 +72,7 @@ export default function Layout() {
           <NavLink to="/account">Account</NavLink>
           <span aria-hidden="true">|</span>
           <a href="https://docs.google.com/document/d/1rXPJI56uJ3kY53Yp3bBGGnVCoFmTg9I0YObS0gseXjs/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
-            Blog
+            Developer Blog
           </a>
           <span aria-hidden="true">|</span>
           <a href="https://docs.google.com/document/d/19H0UWRld-fGzfPq9qKVbmXxFXvJM04NrTMoMeP5cTD4/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
