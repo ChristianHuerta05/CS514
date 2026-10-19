@@ -5,6 +5,9 @@ import { dateLine, dateParts, money } from '../format'
 import { lowestPrice } from '../data/catalog'
 import { useSession } from '../session'
 
+const ABOUT_URL = '#'
+const BLOG_URL = '#'
+
 function marqueeText(events) {
   const bits = []
   const nextOnsale = [...events]
@@ -67,6 +70,12 @@ export default function Layout() {
             Stubs{tickets.length ? ` ${tickets.length}` : ''}
           </NavLink>
           <NavLink to="/account">Account</NavLink>
+          <a href={ABOUT_URL} target="_blank" rel="noreferrer">
+            About Us
+          </a>
+          <a href={BLOG_URL} target="_blank" rel="noreferrer">
+            Blog
+          </a>
         </nav>
         <main>
           <Outlet />

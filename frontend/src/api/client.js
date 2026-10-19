@@ -1,6 +1,6 @@
 import { counterEvents, normalize, venues } from '../data/catalog'
 
-export const GATEWAY = 'https://api-gateway-k909.onrender.com'
+export const GATEWAY = import.meta.env.VITE_API_URL || 'https://api-gateway-k909.onrender.com'
 
 async function readJson(res) {
   try {
