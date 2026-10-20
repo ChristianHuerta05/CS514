@@ -32,13 +32,17 @@ async def proxy(path: str, request: Request):
     bad_headers = {"host", "transfer-encoding", "content-length", "connection", "accept-encoding"}
     headers = {k: v for k, v in request.headers.items() if k.lower() not in bad_headers}
 
-    async with httpx.AsyncClient() as client:
-        res = await client.request(
-            method=request.method,
-            url=f"{where_to_route}/{path}",
-            params=request.query_params,
-            content=await request.body(),
-            headers=headers,
-        )
-
-    return Response(content=res.content,status_code=res.status_code,media_type=res.headers.get("content-type"),)
+    try:
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            res = await client.request(
+                method=request.method,
+                url=f"{where_to_route}/{path}",
+                params=request.query_params,
+                content=await request.body(),
+                headers=headers,
+            )
+        return Response(content=res.content, status_code=res.status_code, media_type=res.headers.get("content-type"))
+    except httpx.TimeoutException:
+        return Response('{"error": "Backend service is waking up, please retry in a few seconds"}', status_code=504, media_type="application/json")
+    except httpx.RequestError as exc:
+        return Response(f'{{"error": "Failed to connect to backend: {exc}"}}', status_code=502, media_type="application/json")
